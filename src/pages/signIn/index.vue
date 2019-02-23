@@ -9,13 +9,15 @@
         <el-input v-model="password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <el-button type="primary" @click="signIn">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -24,8 +26,48 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    signIn() {
+      // let username = this.username;
+      // let password = this.password;
+      let { username, password } = this;
+      // 0. 点击登录按钮, 进行表单校验
+      if (username.trim().length === 0 || password.trim().length === 0)
+        return this.$message({
+          showClose: true,
+          message: "用户名或密码不能为空哦!",
+          type: "error"
+        });
+      // 1. 将用户输入的信息提交给服务器 vue-resource  axios
+      axios
+        .post("http://litc.pro:9999/v1/users/login", {
+          username,
+          password
+        })
+        .then(result => {
+          // console.log(result);
+          this.$message({
+            type: "success",
+            message: result.data.succMsg
+          });
+
+          // console.log(result.data.data);
+
+          localStorage.setItem("token", result.data.data.token);
+          localStorage.setItem("userInfo", JSON.stringify(result.data.data));
+
+          this.$router.push('/home')
+        })
+        .catch(err => {
+          // console.dir(err);
+          this.$message({
+            showClose: true,
+            message: err.response.data.errMsg,
+            type: "error"
+          });
+        });
+
+      // 2. 服务器返回token和当前用户信息, 将其存储到localStorage中
+      // 3. 提醒用户登录成功, 跳转到首页
     }
   }
 };
