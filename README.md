@@ -38,13 +38,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 3. 提醒用户登录成功, 跳转到首页
 
 [ ] 注册
-[ ] 注销
+[x] 注销
 
 技术栈
 
 [x] vue-cli@3
 [x] Element-UI
-[ ] Axios基础
+[x] Axios基础
 [ ] Axios高级应用 拦截器
 [ ] 路由高级应用  导航守卫
 [ ] Vuex的模块化

@@ -43,6 +43,10 @@
         </el-menu>
       </el-col>
       <el-col :span="20">
+        <div style="display: flex; align-items: center">
+          <p>昵称: {{userInfo.nickname}} </p>
+          <el-button @click="signOut" type="danger">退出登录</el-button>
+        </div>
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -50,6 +54,11 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      userInfo: JSON.parse(localStorage.getItem('userInfo') || '{}')
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -68,6 +77,15 @@ export default {
           // this.$router.push("/home/wuhanReceiver");
           break;
       }
+    },
+    signOut() {
+      localStorage.removeItem('token')
+      localStorage.removeItem('userInfo')
+      this.$message({
+        type: 'success',
+        message: '恭喜您退出成功!'
+      })
+      this.$router.push('/')
     }
   }
 };

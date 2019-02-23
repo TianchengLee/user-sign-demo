@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
@@ -38,7 +38,8 @@ export default {
           type: "error"
         });
       // 1. 将用户输入的信息提交给服务器 vue-resource  axios
-      axios
+      // axios
+      this.$http
         .post("http://litc.pro:9999/v1/users/login", {
           username,
           password
