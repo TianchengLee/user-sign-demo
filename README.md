@@ -46,6 +46,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 [x] Element-UI
 [x] Axios基础
 [ ] Axios高级应用 拦截器
-[ ] 路由高级应用  导航守卫
+[x] 路由高级应用  导航守卫
 [ ] Vuex的模块化
 
