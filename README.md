@@ -27,3 +27,19 @@ yarn run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+模块:
+
+[x] 登录
+[ ] 注册
+[ ] 注销
+
+技术栈
+
+[x] vue-cli@3
+[x] Element-UI
+[ ] Axios基础
+[ ] Axios高级应用 拦截器
+[ ] 路由高级应用  导航守卫
+[ ] Vuex的模块化
+
