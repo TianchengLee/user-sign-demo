@@ -7,8 +7,40 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 import './styles/common.css'
 import axios from "axios";
+
 // 将Axios挂载到Vue的原型中
 Vue.prototype.$http = axios;
+// 全局配置baseURL
+axios.defaults.baseURL = 'http://litc.pro:9999/v1';
+
+// 添加请求拦截器
+axios.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  let token = localStorage.getItem('token') || ''
+  config.headers.Authorization = token
+  return config;
+}, function (error) {
+  // 对请求错误做些什么
+  return Promise.reject(error);
+});
+
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+  // 对响应数据做点什么
+  // console.log('我是拦截器拦截到的response:', response)
+  response = response.data
+  return response;
+}, function (error) {
+  // 对响应错误做点什么
+  // console.log('我是拦截器拦截到的error:', error)
+  // console.dir(err);
+  Vue.prototype.$message({
+    showClose: true,
+    type: "error",
+    message: error.response.data.errMsg
+  });
+  return Promise.reject(error);
+});
 
 // 导航守卫效果看起来很像使用watch监视路由的变化
 // 但是区别在于: watch是监视路由的变化, 无法阻止路由的导航

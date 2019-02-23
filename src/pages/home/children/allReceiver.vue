@@ -100,20 +100,19 @@ export default {
       let token = localStorage.getItem("token") || "";
       // 发送请求获取数据
       this.$http
-        .get("http://litc.pro:9999/v1/users/getReceiverAddress", {
-          headers: { Authorization: token }
-        })
+        .get("/users/getReceiverAddress")
         .then(result => {
           // console.log(result);
-          this.receiverData = result.data.data;
+          this.receiverData = result.data;
         })
-        .catch(err => {
-          // console.dir(err);
-          this.$message({
-            type: "error",
-            message: err.response.data.errMsg
-          });
-        });
+        // .catch(err => {
+        //   // console.dir(err);
+        //   this.$message({
+        //     showClose: true,
+        //     type: "error",
+        //     message: err.response.data.errMsg
+        //   });
+        // });
     }
   }
 };

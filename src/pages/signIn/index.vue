@@ -40,7 +40,7 @@ export default {
       // 1. 将用户输入的信息提交给服务器 vue-resource  axios
       // axios
       this.$http
-        .post("http://litc.pro:9999/v1/users/login", {
+        .post("/users/login", {
           username,
           password
         })
@@ -48,24 +48,24 @@ export default {
           // console.log(result);
           this.$message({
             type: "success",
-            message: result.data.succMsg
+            message: result.succMsg
           });
 
           // console.log(result.data.data);
 
-          localStorage.setItem("token", result.data.data.token);
-          localStorage.setItem("userInfo", JSON.stringify(result.data.data));
+          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("userInfo", JSON.stringify(result.data));
 
           this.$router.push('/home')
         })
-        .catch(err => {
-          // console.dir(err);
-          this.$message({
-            showClose: true,
-            message: err.response.data.errMsg,
-            type: "error"
-          });
-        });
+        // .catch(err => {
+        //   // console.dir(err);
+        //   this.$message({
+        //     showClose: true,
+        //     message: err.response.data.errMsg,
+        //     type: "error"
+        //   });
+        // });
 
       // 2. 服务器返回token和当前用户信息, 将其存储到localStorage中
       // 3. 提醒用户登录成功, 跳转到首页
