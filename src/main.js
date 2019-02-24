@@ -11,13 +11,18 @@ import axios from "axios";
 // 将Axios挂载到Vue的原型中
 Vue.prototype.$http = axios;
 // 全局配置baseURL
-axios.defaults.baseURL = 'http://litc.pro:9999/v1';
+axios.defaults.baseURL = 'http://www.litc.pro:9999/v1';
+
+// 全局配置withCredentials
+axios.defaults.withCredentials = true
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
   let token = localStorage.getItem('token') || ''
   config.headers.Authorization = token
+  // 拦截器的添加方式
+  // config.withCredentials = true
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -60,7 +65,7 @@ router.beforeEach((to, from, next) => {
   // 存在表示已登录
   // 判断如果用户登录了就正常导航
   // 登录页面也不能进行拦截, 应当放行
-  if (token || to.path === '/signIn') {
+  if (token || to.path === '/signIn' || to.path === '/signUp') {
     next()
   } else {
     // 如果没有登录  就跳转回 /

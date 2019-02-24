@@ -8,8 +8,9 @@
       <el-form-item label="密码">
         <el-input v-model="password"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="buttom-container">
         <el-button type="primary" @click="signIn">登录</el-button>
+        <router-link to="/signUp">没有账号?去注册!</router-link>
       </el-form-item>
     </el-form>
   </div>
@@ -56,16 +57,16 @@ export default {
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("userInfo", JSON.stringify(result.data));
 
-          this.$router.push('/home')
-        })
-        // .catch(err => {
-        //   // console.dir(err);
-        //   this.$message({
-        //     showClose: true,
-        //     message: err.response.data.errMsg,
-        //     type: "error"
-        //   });
-        // });
+          this.$router.push("/home");
+        });
+      // .catch(err => {
+      //   // console.dir(err);
+      //   this.$message({
+      //     showClose: true,
+      //     message: err.response.data.errMsg,
+      //     type: "error"
+      //   });
+      // });
 
       // 2. 服务器返回token和当前用户信息, 将其存储到localStorage中
       // 3. 提醒用户登录成功, 跳转到首页
@@ -74,8 +75,9 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.sign-in-container {
+<style lang="less">
+.sign-in-container,
+.sign-up-container {
   width: 600px;
   // border: 1px solid #ccc;
   margin: 200px auto;
@@ -84,6 +86,16 @@ export default {
     line-height: 50px;
     font-size: 24px;
     color: #0094ff;
+  }
+  .buttom-container {
+    .el-form-item__content {
+      display: flex;
+      justify-content: space-between;
+      a {
+        text-decoration: none;
+        color: #0094ff;
+      }
+    }
   }
 }
 </style>
